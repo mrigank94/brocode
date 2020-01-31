@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Tech({techName, techDescription, noOfCollaborators}) {
+export default function Tech({techName, techDescription, noOfCollaborators, onTLClick}) {
     const classes = useStyles();
 
     return (
@@ -42,7 +42,7 @@ export default function Tech({techName, techDescription, noOfCollaborators}) {
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={onTLClick}>
                     Join
                 </Button>
             </CardActions>
