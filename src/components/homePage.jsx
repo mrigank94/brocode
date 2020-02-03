@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TechList from "./techList";
 import LeaderBoard from "./leaderBoard";
 import techs from "../data/technologies";
+import query from "querystring";
 
 class HomePage extends Component {
     render() {
@@ -17,10 +18,12 @@ class HomePage extends Component {
         );
     }
 
-    handleClick = () => {
-        console.log('Join button clicked');
+    handleClick = (techName) => {
+        console.log('Join button clicked', techName);
+        const name = 'mrigank';
         this.props.history.push({
-            pathname: 'tech-details'
+            pathname: 'tech-details',
+            search: query.stringify({tech: techName, name: 'Mrigank'})
         });
     };
 

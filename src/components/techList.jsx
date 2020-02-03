@@ -7,8 +7,11 @@ const TechList = (props) => {
     return (
         <div className='d-flex flex-row m-2 flex-wrap justify-content-between'>
             {techs.map(tech =>
-                <Tech techName={tech.name} noOfCollaborators={tech.collaborators}
-                      techDescription={tech.description} onTLClick={onHClick}/>
+                <Tech key={tech.name} techName={tech.name} noOfCollaborators={tech.collaborators}
+                      techDescription={tech.description} onTLClick={(techName) => {
+                          console.log('Tech list component', techName);
+                          onHClick(techName)
+                }}/>
             )}
         </div>
     );

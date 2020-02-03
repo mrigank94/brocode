@@ -28,11 +28,11 @@ export default function Tech({techName, techDescription, noOfCollaborators, onTL
     return (
         <Card className={classes.card}>
             <CardActionArea>
-                <CardContent classes={classes.cardContent}>
+                <CardContent className={classes.cardContent}>
                     <Typography gutterBottom variant="h5" component="h2">
                         <div className='d-flex flex-row justify-content-between'>
                             {techName}
-                            <button className='btn btn-success'>{noOfCollaborators}</button>
+                            <div className='btn btn-success'>{noOfCollaborators}</div>
                         </div>
 
                     </Typography>
@@ -42,7 +42,7 @@ export default function Tech({techName, techDescription, noOfCollaborators, onTL
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" onClick={onTLClick}>
+                <Button size="small" color="primary" onClick={() => onTLClick(techName)}>
                     Join
                 </Button>
             </CardActions>
