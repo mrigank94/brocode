@@ -37,7 +37,6 @@ const Collaborator = (props) => {
                         <div className='d-flex flex-row justify-content-between'>
                             {name}
                             <Box component="fieldset" mb={3} borderColor="transparent">
-                                <Typography component="legend">Read only</Typography>
                                 <Rating name="read-only" value={rating} readOnly />
                             </Box>
                         </div>

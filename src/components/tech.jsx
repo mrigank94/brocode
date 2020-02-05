@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Tech({techName, techDescription, noOfCollaborators, onTLClick}) {
+export default function Tech({techName, techDescription, noOfCollaborators, onTLClick, visibility={}}) {
     const classes = useStyles();
 
     return (
@@ -42,9 +42,10 @@ export default function Tech({techName, techDescription, noOfCollaborators, onTL
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" onClick={() => onTLClick(techName)}>
-                    Join
-                </Button>
+                {visibility.button === false ? null :
+                    <Button size="small" color="primary" onClick={() => onTLClick(techName)}>
+                        Join
+                    </Button>}
             </CardActions>
         </Card>
     );
