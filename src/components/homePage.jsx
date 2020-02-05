@@ -20,10 +20,9 @@ class HomePage extends Component {
 
     handleClick = (techName) => {
         console.log('Join button clicked', techName);
-        const name = 'mrigank';
         this.props.history.push({
             pathname: 'tech-details',
-            search: query.stringify({tech: techName, name: 'Mrigank'})
+            search: query.stringify({tech: techName})
         });
     };
 
