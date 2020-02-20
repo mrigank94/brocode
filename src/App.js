@@ -10,8 +10,10 @@ import {Switch, Route} from "react-router-dom";
 import SignIn from "./components/signIn";
 import SignUp from "./components/signUp";
 import {ToastContainer} from "react-toastify";
+import {withRouter} from 'react-router-dom';
 
-function App() {
+function App(props) {
+
     return (
         <>
             <ToastContainer/>
@@ -28,4 +30,4 @@ function App() {
 );
 }
 
-export default App;
+export default withRouter(App);

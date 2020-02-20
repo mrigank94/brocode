@@ -22,7 +22,9 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Tech({techName, techDescription, noOfCollaborators, onTLClick, visibility={}}) {
+export default function Tech(props) {
+    const {techName, techDescription, noOfCollaborators, onTLClick, visibility={}} = props;
+    console.log('Tech', props);
     const classes = useStyles();
 
     return (

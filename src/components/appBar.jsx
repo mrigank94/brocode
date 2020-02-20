@@ -14,6 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import {withRouter} from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     grow: {
@@ -77,7 +78,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
+const PrimarySearchAppBar = (props) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -91,6 +92,13 @@ export default function PrimarySearchAppBar() {
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
+    };
+
+    const handleLogout = (props) => {
+        localStorage.removeItem('isAuthenticated');
+        props.history.push({
+            pathname: '/'
+        });
     };
 
     const handleMenuClose = () => {
@@ -115,6 +123,7 @@ export default function PrimarySearchAppBar() {
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={() => handleLogout(props)}>Logout</MenuItem>
         </Menu>
     );
 
@@ -227,4 +236,6 @@ export default function PrimarySearchAppBar() {
             {renderMenu}
         </div>
     );
-}
+};
+
+export default withRouter(PrimarySearchAppBar);

@@ -5,6 +5,15 @@ import techs from "../data/technologies";
 import query from "querystring";
 
 class HomePage extends Component {
+
+    componentDidMount() {
+        if(localStorage.getItem('isAuthenticated') !== 'true') {
+            this.props.history.push({
+                pathname: '/'
+            });
+        }
+    }
+
     render() {
         return (
             <div className='d-flex flex-row m-2 justify-content-between'>
