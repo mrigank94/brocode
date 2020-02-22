@@ -1,39 +1,51 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const validUsers = [{
-    username: 'mrigank',
-    password: 'mrigank'
-},
-    {
-        username: 'pavan',
-        password: 'mrigank'
-    },
-    {
-        username: 'diggyboy',
-        password: 'mrigank'
-    },
-    {
-        username: 'ankit',
-        password: 'mrigank'
-    },
-    {
-        username: 'manoj',
-        password: 'mrigank'
-    },
-    {
-        username: 'dipesh',
-        password: 'mrigank'
-    },
-    {
-        username: 'nishikant',
-        password: 'mrigank'
-    }];
+
 
 app.use(cors());
 app.use(express.json());
-app.get("/heartbeat", (req, res) => {
+
+const validUsers = require('./data/users');
+const techs = require('./data/techs');
+const collaborators = require('./data/collaborators');
+
+app.get("/api/v1/heartbeat", (req, res) => {
     res.send('Heartbeat received');
+});
+
+app.get("/api/v1/techs", (req, res) => {
+    console.log(techs);
+    res.status(200).send(JSON.stringify(techs));
+});
+
+app.get("/api/v1/techs", (req, res) => {
+    console.log(techs);
+    res.status(200).send(JSON.stringify(techs));
+});
+
+app.get("/api/v1/techs/:name", (req, res) => {
+    const techName = req.params.name;
+    const tech = techs.find(tech => tech.name.toLowerCase() === techName.toLowerCase());
+
+    if (tech === undefined) {
+        res.status(404).send('Tech not found');
+        return;
+    }
+
+    res.status(200).send(JSON.stringify(tech));
+});
+
+app.get('/api/v1/techs/collaborators/:name', (req, res) => {
+    const techName = req.params.name;
+    const techCollaborators = collaborators.find(collaborator => collaborator.techName.toLowerCase() === techName.toLowerCase());
+
+    if (techCollaborators === undefined) {
+        res.status(404).send('Tech not found');
+        return;
+    }
+
+    res.status(200).send(JSON.stringify(techCollaborators.collaborators));
 });
 
 app.post("/api/login", (req, res) => {
@@ -56,3 +68,7 @@ app.listen(3003);
 
 console.log("Listening on port 3003");
 
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/brocode')
+    .then(() => console.log('Connection successful'), (err) => console.log('Error', err));

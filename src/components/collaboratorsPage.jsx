@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import queryString from "query-string";
-import collaboratorData from "../data/collaborators.json";
-import techData from "../data/technologies.json";
-import Collaborator from "./collaborator";
 import query from "querystring";
+import axios from "axios";
+import Collaborator from "./collaborator";
 import Tech from "./tech";
 
 class CollaboratorsPage extends Component {
@@ -16,27 +15,24 @@ class CollaboratorsPage extends Component {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const {tech} = queryString.parse(this.props.location.search);
-        const collaborators = this.findCollaborators(tech);
-        const techDetails = this.findTechDetails(tech);
+        let techDetails = {};
+        let collaborators = [];
+        try {
+            const {data} = await axios.get('http://localhost:3003/api/v1/techs/' + tech);
+            techDetails = data;
+        } catch (ex) {
+            console.log('Exception occured', ex);
+        }
+
+        try {
+            const {data} = await axios.get('http://localhost:3003/api/v1/techs/collaborators/' + tech);
+            collaborators = data;
+        } catch (ex) {
+            console.log('Exception occured', ex);
+        }
         this.setState({collaborators, techDetails});
-    }
-
-    findTechDetails(name) {
-        for (let i = 0; i < techData.length; i++) {
-            if (techData[i].name === name) {
-                return techData[i];
-            }
-        }
-    }
-
-    findCollaborators(tech) {
-        for (let i = 0; i < collaboratorData.length; i++) {
-            if (collaboratorData[i].techName === tech) {
-                return collaboratorData[i].collaborators;
-            }
-        }
     }
 
     render() {
